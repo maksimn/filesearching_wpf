@@ -1,0 +1,13 @@
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\bin\Debug\FileSearchingWPF.exe.config
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\bin\Debug\FileSearchingWPF.exe
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\bin\Debug\FileSearchingWPF.pdb
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF.csprojResolveAssemblyReference.cache
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\MainWindow.baml
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\MainWindow.g.cs
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\App.g.cs
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF_MarkupCompile.cache
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF.g.resources
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF.Properties.Resources.resources
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF.csproj.GenerateResource.Cache
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF.exe
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF.pdb

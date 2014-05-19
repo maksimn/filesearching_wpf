@@ -1,0 +1,14 @@
+﻿<Window x:Class="FileSearchingWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Поиск файлов" Height="350" Width="525">
+    <Canvas>
+        <Label Canvas.Top="0" Canvas.Left="0" Content="Директория для поиска:"/>
+        <StackPanel Canvas.Top="20" Canvas.Left="0" Orientation="Horizontal">
+            <TextBox x:Name="folderTextBox" Width="200" />
+            <Button x:Name="folderButton" Width="40" Content="Задать" />
+        </StackPanel>
+        <Label Canvas.Top="40" Canvas.Left="0" Content="Файл:" />
+        <TextBox Canvas.Top="60" Canvas.Left="0" x:Name="fileTextBox" Width="240" />
+    </Canvas>
+</Window>
