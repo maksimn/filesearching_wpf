@@ -1,7 +1,7 @@
 ﻿<Window x:Class="FileSearchingWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Поиск файлов" Height="350" Width="525">
+        Title="Поиск файлов" Background="LightGray" Height="350" Width="525" SizeChanged="MainWindowSizeChangedHandler">
     <Canvas>
         <Label Canvas.Top="0" Canvas.Left="0" Content="Директория для поиска:"/>
         <StackPanel Canvas.Top="20" Canvas.Left="0" Orientation="Horizontal">
@@ -10,5 +10,18 @@
         </StackPanel>
         <Label Canvas.Top="40" Canvas.Left="0" Content="Файл:" />
         <TextBox Canvas.Top="60" Canvas.Left="0" x:Name="fileTextBox" Width="240" />
+        <StackPanel Canvas.Top="85" Canvas.Left="0" Orientation="Horizontal">
+            <Label Content="Обработано файлов:" />
+            <Label x:Name="qtyFilesLabel" />
+        </StackPanel>
+        <StackPanel Canvas.Top="105" Canvas.Left="0" Orientation="Horizontal">
+            <Label Content="Прошло времени:" />
+            <Label x:Name="timeLabel" />
+        </StackPanel>
+        <StackPanel Canvas.Top="150" Canvas.Left="0" Orientation="Horizontal">
+            <Button x:Name="startButton" Width="50" Margin="10" Content="Начать" />
+            <Button x:Name="stopButton" Width="50" Margin="10" Content="Стоп" />
+        </StackPanel>
+        <TreeView Canvas.Left="250" x:Name="treeView" Width="267" Height="319"/>
     </Canvas>
 </Window>
