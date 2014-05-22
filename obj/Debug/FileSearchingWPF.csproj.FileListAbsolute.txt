@@ -11,3 +11,4 @@ D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF.Propert
 D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF.csproj.GenerateResource.Cache
 D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF.exe
 D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF.pdb
+D:\PrevRabStol\MyProgramming\FileSearchingWPF\obj\Debug\FileSearchingWPF_MarkupCompile.lref
