@@ -14,6 +14,7 @@ namespace FileSearchingWPF {
             SetInitialValuesInTextBoxes();
 
             fileSearcher = new FileSearcher();
+            fileSearcher.NewFileProcessed += NewFileProcessedMsg;
         }
 
         private void MainWindowSizeChangedHandler(object sender, SizeChangedEventArgs e) {
@@ -38,7 +39,7 @@ namespace FileSearchingWPF {
             Properties.Settings.Default.Save();
         }
 
-        private void folderButtonClickHandler(object sender, RoutedEventArgs e) {
+        private void WorkingWithFolderBrowserDialog() {
             this.folderBrowserDialog = new FolderBrowserDialog();
             this.folderBrowserDialog.Description = "Задайте директорию для поиска файлов.";
             this.folderBrowserDialog.SelectedPath = folderTextBox.Text;
@@ -48,12 +49,19 @@ namespace FileSearchingWPF {
             }
         }
 
+        private void folderButtonClickHandler(object sender, RoutedEventArgs e) {
+            WorkingWithFolderBrowserDialog();
+        }
+
         private void startButtonClickHandler(object sender, RoutedEventArgs e) {
             treeView.Items.Clear();
             fileSearcher.Directory = folderTextBox.Text;
             fileSearcher.FilePattern = fileTextBox.Text;
-            fileSearcher.SetWindowToShowResults(this);
             fileSearcher.StartSearching();
+        }
+
+        private void NewFileProcessedMsg(Object o, NewFileProcessedEventArgs e) {
+            qtyFilesLabel.Content = e.NumFiles.ToString();
         }
     }
 }

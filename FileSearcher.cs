@@ -1,21 +1,19 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 
 namespace FileSearchingWPF {
     // FileSearcher class encapsulate logics to find files 
     class FileSearcher {
-        private MainWindow mainWindow;
         public Int32 NumFiles { set; get; } // Number of files processed
         public String Directory { get; set; }
         public String FilePattern { get; set; }
 
+        public event EventHandler<NewFileProcessedEventArgs> NewFileProcessed;
+
         public void StartSearching() {
             DirectoryInfo dir = new DirectoryInfo(Directory);
             FindFiles(dir);
-        }
-
-        public void SetWindowToShowResults(MainWindow mainWindow) {
-            this.mainWindow = mainWindow;
         }
 
         private void FindFiles(DirectoryInfo dir) {
@@ -31,11 +29,18 @@ namespace FileSearchingWPF {
                 }
                 foreach (var file in files) {
                     NumFiles++;
-                    mainWindow.qtyFilesLabel.Content = NumFiles;
+                    OnNewFileProcessed(new NewFileProcessedEventArgs(NumFiles));
                     if (file.Name.Contains(FilePattern)) {
                     }
                 }
             } catch (Exception) {
+            }
+        }
+
+        protected virtual void OnNewFileProcessed(NewFileProcessedEventArgs e) {
+            EventHandler<NewFileProcessedEventArgs> temp = Volatile.Read(ref NewFileProcessed);
+            if (temp != null) {
+                temp(this, e);
             }
         }
     }
