@@ -54,10 +54,18 @@ namespace FileSearchingWPF {
         }
 
         private void startButtonClickHandler(object sender, RoutedEventArgs e) {
-            treeView.Items.Clear();
-            fileSearcher.Directory = folderTextBox.Text;
-            fileSearcher.FilePattern = fileTextBox.Text;
+            EmptyTreeView();
+            SetSearchingParameters();
             fileSearcher.StartSearching();
+        }
+
+        private void EmptyTreeView() {
+            treeView.Items.Clear();
+        }
+
+        private void SetSearchingParameters() {
+            fileSearcher.Directory = folderTextBox.Text;
+            fileSearcher.FilePattern = fileTextBox.Text;            
         }
 
         private void NewFileProcessedMsg(Object o, NewFileProcessedEventArgs e) {
