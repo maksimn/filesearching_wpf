@@ -12,8 +12,12 @@ namespace FileSearchingWPF {
 
         public event EventHandler<NewFileProcessedEventArgs> NewFileProcessed;
 
-        public async Task FindFiles(DirectoryInfo dir) {
-            await Task.Run(() => { ProcessDirectories(dir); });
+        public async Task StartSearching() {
+            await Task.Run(() => { FindFiles(new DirectoryInfo(Directory)); });
+        }
+
+        private void FindFiles(DirectoryInfo dir) {
+            ProcessDirectories(dir);
         }
 
         private void ProcessDirectories(DirectoryInfo dir) {

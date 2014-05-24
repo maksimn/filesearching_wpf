@@ -56,7 +56,7 @@ namespace FileSearchingWPF {
         private async void startButtonClickHandler(object sender, RoutedEventArgs e) {
             EmptyTreeView();
             SetSearchingParameters();
-            await fileSearcher.FindFiles(new System.IO.DirectoryInfo(fileSearcher.Directory));           
+            await fileSearcher.StartSearching();           
         }
 
         private void EmptyTreeView() {
