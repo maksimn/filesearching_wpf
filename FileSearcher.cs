@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace FileSearchingWPF {
     // FileSearcher class encapsulate logics to find files 
@@ -11,13 +12,8 @@ namespace FileSearchingWPF {
 
         public event EventHandler<NewFileProcessedEventArgs> NewFileProcessed;
 
-        public void StartSearching() {
-            DirectoryInfo dir = new DirectoryInfo(Directory);
-            FindFiles(dir);
-        }
-
-        private void FindFiles(DirectoryInfo dir) {
-            ProcessDirectories(dir);
+        public async Task FindFiles(DirectoryInfo dir) {
+            await Task.Run(() => { ProcessDirectories(dir); });
         }
 
         private void ProcessDirectories(DirectoryInfo dir) {

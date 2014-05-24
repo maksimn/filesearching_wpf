@@ -53,10 +53,10 @@ namespace FileSearchingWPF {
             WorkingWithFolderBrowserDialog();
         }
 
-        private void startButtonClickHandler(object sender, RoutedEventArgs e) {
+        private async void startButtonClickHandler(object sender, RoutedEventArgs e) {
             EmptyTreeView();
             SetSearchingParameters();
-            fileSearcher.StartSearching();
+            await fileSearcher.FindFiles(new System.IO.DirectoryInfo(fileSearcher.Directory));           
         }
 
         private void EmptyTreeView() {
@@ -69,7 +69,7 @@ namespace FileSearchingWPF {
         }
 
         private void NewFileProcessedMsg(Object o, NewFileProcessedEventArgs e) {
-            qtyFilesLabel.Content = e.NumFiles.ToString();
+            this.Dispatcher.Invoke(new Action<int>(num => qtyFilesLabel.Content = num.ToString()), e.NumFiles);
         }
     }
 }
