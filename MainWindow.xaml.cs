@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Forms;
+using System.Windows.Controls;
 
 namespace FileSearchingWPF {
     public partial class MainWindow : Window {
         // Fields:
-        private FolderBrowserDialog folderBrowserDialog;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private FileSearcher fileSearcher;
 
         // Methods:
@@ -21,7 +21,7 @@ namespace FileSearchingWPF {
         private void MainWindowSizeChangedHandler(object sender, SizeChangedEventArgs e) {
             if (e.NewSize.Width > 250) {
                 treeView.Width = e.NewSize.Width - 250 - 20;
-                treeView.Height = e.NewSize.Height - 50;
+                treeView.Height = e.NewSize.Height - 53;
             }
         }
 
@@ -41,10 +41,10 @@ namespace FileSearchingWPF {
         }
 
         private void WorkingWithFolderBrowserDialog() {
-            this.folderBrowserDialog = new FolderBrowserDialog();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.folderBrowserDialog.Description = "Задайте директорию для поиска файлов.";
             this.folderBrowserDialog.SelectedPath = folderTextBox.Text;
-            DialogResult dialogResult = this.folderBrowserDialog.ShowDialog();
+            System.Windows.Forms.DialogResult dialogResult = this.folderBrowserDialog.ShowDialog();
             if (dialogResult == System.Windows.Forms.DialogResult.OK) {
                 folderTextBox.Text = folderBrowserDialog.SelectedPath;
             }
@@ -74,7 +74,28 @@ namespace FileSearchingWPF {
         }
 
         private void NewFileFoundMsg(Object o, NewFileFoundEventArgs e) {
-            this.Dispatcher.Invoke(new Action<String>(str => treeView.Items.Add(str)), e.FullName);
+            this.Dispatcher.Invoke(new Action<String>(str => AddInformationInTreeView(str)), e.FullName);
+        }
+
+        private void AddInformationInTreeView(String str) {
+            if (treeView.Items.IsEmpty) {
+                String[] sArr = str.Split(new Char[] { '\\' });
+                TreeViewItem currItem = new TreeViewItem();
+                if (sArr.Length > 0) {
+                    currItem.Header = sArr[0];
+                    treeView.Items.Add(currItem);
+                    currItem.IsExpanded = true;
+                }
+                for (Int32 i = 1; i < sArr.Length; i++) {
+                    TreeViewItem newTreeViewItem = new TreeViewItem();
+                    newTreeViewItem.Header = sArr[i];
+                    currItem.Items.Add(newTreeViewItem);
+                    currItem = newTreeViewItem;
+                    currItem.IsExpanded = true;
+                }
+            } else {
+                treeView.Items.Add(str);
+            }            
         }
     }
 }
