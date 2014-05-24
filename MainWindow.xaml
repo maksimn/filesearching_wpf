@@ -24,6 +24,6 @@
             <Button x:Name="startButton" Width="50" Margin="10" Content="Начать" Click="startButtonClickHandler" />
             <Button x:Name="stopButton" Width="50" Margin="10" Content="Стоп" />
         </StackPanel>
-        <TreeView Canvas.Left="250" x:Name="treeView" Width="267" Height="319"/>
+        <TreeView Canvas.Left="250" x:Name="treeView" Width="257" Height="299" Canvas.Top="10"/>
     </Canvas>
 </Window>

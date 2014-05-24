@@ -15,12 +15,13 @@ namespace FileSearchingWPF {
 
             fileSearcher = new FileSearcher();
             fileSearcher.NewFileProcessed += NewFileProcessedMsg;
+            fileSearcher.NewFileFound += NewFileFoundMsg;
         }
 
         private void MainWindowSizeChangedHandler(object sender, SizeChangedEventArgs e) {
             if (e.NewSize.Width > 250) {
-                treeView.Width = e.NewSize.Width - 250;
-                treeView.Height = e.NewSize.Height;
+                treeView.Width = e.NewSize.Width - 250 - 20;
+                treeView.Height = e.NewSize.Height - 50;
             }
         }
 
@@ -69,7 +70,11 @@ namespace FileSearchingWPF {
         }
 
         private void NewFileProcessedMsg(Object o, NewFileProcessedEventArgs e) {
-            this.Dispatcher.Invoke(new Action<int>(num => qtyFilesLabel.Content = num.ToString()), e.NumFiles);
+            this.Dispatcher.Invoke(new Action<Int32>(num => qtyFilesLabel.Content = num.ToString()), e.NumFiles);
+        }
+
+        private void NewFileFoundMsg(Object o, NewFileFoundEventArgs e) {
+            this.Dispatcher.Invoke(new Action<String>(str => treeView.Items.Add(str)), e.FullName);
         }
     }
 }

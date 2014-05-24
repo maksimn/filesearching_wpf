@@ -11,6 +11,7 @@ namespace FileSearchingWPF {
         public String FilePattern { get; set; }
 
         public event EventHandler<NewFileProcessedEventArgs> NewFileProcessed;
+        public event EventHandler<NewFileFoundEventArgs> NewFileFound;
 
         public async Task StartSearching() {
             await Task.Run(() => { FindFiles(new DirectoryInfo(Directory)); });
@@ -31,6 +32,7 @@ namespace FileSearchingWPF {
                     NumFiles++;
                     OnNewFileProcessed(new NewFileProcessedEventArgs(NumFiles));
                     if (file.Name.Contains(FilePattern)) {
+                        OnNewFileFound(new NewFileFoundEventArgs(file.FullName));
                     }
                 }
             } catch (Exception) {
@@ -39,6 +41,13 @@ namespace FileSearchingWPF {
 
         protected virtual void OnNewFileProcessed(NewFileProcessedEventArgs e) {
             EventHandler<NewFileProcessedEventArgs> temp = Volatile.Read(ref NewFileProcessed);
+            if (temp != null) {
+                temp(this, e);
+            }
+        }
+
+        protected virtual void OnNewFileFound(NewFileFoundEventArgs e) {
+            EventHandler<NewFileFoundEventArgs> temp = Volatile.Read(ref NewFileFound);
             if (temp != null) {
                 temp(this, e);
             }
