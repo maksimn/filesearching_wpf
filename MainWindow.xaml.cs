@@ -79,23 +79,27 @@ namespace FileSearchingWPF {
 
         private void AddInformationInTreeView(String str) {
             if (treeView.Items.IsEmpty) {
-                String[] sArr = str.Split(new Char[] { '\\' });
-                TreeViewItem currItem = new TreeViewItem();
-                if (sArr.Length > 0) {
-                    currItem.Header = sArr[0];
-                    treeView.Items.Add(currItem);
-                    currItem.IsExpanded = true;
-                }
-                for (Int32 i = 1; i < sArr.Length; i++) {
-                    TreeViewItem newTreeViewItem = new TreeViewItem();
-                    newTreeViewItem.Header = sArr[i];
-                    currItem.Items.Add(newTreeViewItem);
-                    currItem = newTreeViewItem;
-                    currItem.IsExpanded = true;
-                }
+                WhatToDoWhenThereAreNoFoundFilesInTreeView(str);
             } else {
                 treeView.Items.Add(str);
             }            
+        }
+
+        private void WhatToDoWhenThereAreNoFoundFilesInTreeView(String str) {
+            String[] sArr = str.Split(new Char[] { '\\' });
+            TreeViewItem currItem = new TreeViewItem();
+            if (sArr.Length > 0) {
+                currItem.Header = sArr[0];
+                treeView.Items.Add(currItem);
+                currItem.IsExpanded = true;
+            }
+            for (Int32 i = 1; i < sArr.Length; i++) {
+                TreeViewItem newTreeViewItem = new TreeViewItem();
+                newTreeViewItem.Header = sArr[i];
+                currItem.Items.Add(newTreeViewItem);
+                currItem = newTreeViewItem;
+                currItem.IsExpanded = true;
+            }        
         }
     }
 }
