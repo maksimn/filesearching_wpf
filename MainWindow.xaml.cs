@@ -81,7 +81,7 @@ namespace FileSearchingWPF {
             if (treeView.Items.IsEmpty) {
                 WhatToDoWhenThereAreNoFoundFilesInTreeView(str);
             } else {
-                treeView.Items.Add(str);
+                WhatToDoIfAtLeastOneFoundFileExistsInTreeView(str);
             }            
         }
 
@@ -99,7 +99,43 @@ namespace FileSearchingWPF {
                 currItem.Items.Add(newTreeViewItem);
                 currItem = newTreeViewItem;
                 currItem.IsExpanded = true;
-            }        
+            }
+        }
+
+        private void WhatToDoIfAtLeastOneFoundFileExistsInTreeView(String str) {
+            String[] sArr = str.Split(new Char[] {'\\'});
+            TreeViewItem currItem = (TreeViewItem)treeView.Items.GetItemAt(0);
+            Int32 i = 0;
+            if (sArr.Length > 0) {
+                if ((String)currItem.Header == sArr[0]) {
+                    i++;
+                }
+            }
+            if (sArr.Length > 1) {
+                while (i < sArr.Length) {
+                    Boolean isThisItemExist = false;
+                    foreach (TreeViewItem item in currItem.Items) {
+                        if ((String)item.Header == sArr[i]) {
+                            isThisItemExist = true;
+                            i++;
+                            currItem = item;
+                            break;
+                        }
+                    }
+                    if (!isThisItemExist) {
+                        TreeViewItem newItem = new TreeViewItem();
+                        newItem.Header = sArr[i];
+                        currItem.Items.Add(newItem);
+                        currItem = newItem;
+                        currItem.IsExpanded = true;
+                        i++;
+                    }
+                }
+            }
+        }
+
+        private void stopButtonClickHandler(object sender, RoutedEventArgs e) {
+//            MessageBox.Show("Stop");
         }
     }
 }

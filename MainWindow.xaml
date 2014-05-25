@@ -22,7 +22,7 @@
         </StackPanel>
         <StackPanel Canvas.Top="150" Canvas.Left="0" Orientation="Horizontal">
             <Button x:Name="startButton" Width="50" Margin="10" Content="Начать" Click="startButtonClickHandler" />
-            <Button x:Name="stopButton" Width="50" Margin="10" Content="Стоп" />
+            <Button x:Name="stopButton" Width="50" Margin="10" Content="Стоп" Click="stopButtonClickHandler" />
         </StackPanel>
         <TreeView Canvas.Left="250" x:Name="treeView" Width="257" Height="299" Canvas.Top="10"/>
     </Canvas>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace FileSearchingWPF {
     // FileSearcher class encapsulate logics to find files 
     class FileSearcher {
-        public Int32 NumFiles { set; get; } // Number of files processed
+        public Int32 NumFiles { get; set; } // Number of files processed
         public String Directory { get; set; }
         public String FilePattern { get; set; }
 
@@ -29,8 +29,7 @@ namespace FileSearchingWPF {
                     ProcessDirectories(subdir);
                 }
                 foreach (var file in files) {
-                    NumFiles++;
-                    OnNewFileProcessed(new NewFileProcessedEventArgs(NumFiles));
+                    OnNewFileProcessed(new NewFileProcessedEventArgs(++NumFiles));
                     if (file.Name.Contains(FilePattern)) {
                         OnNewFileFound(new NewFileFoundEventArgs(file.FullName));
                     }
