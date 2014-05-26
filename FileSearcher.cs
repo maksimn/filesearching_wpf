@@ -13,20 +13,26 @@ namespace FileSearchingWPF {
         public event EventHandler<NewFileProcessedEventArgs> NewFileProcessed;
         public event EventHandler<NewFileFoundEventArgs> NewFileFound;
 
+        private CancellationTokenSource cts;
+
         public async Task StartSearching() {
             await Task.Run(() => { FindFiles(new DirectoryInfo(Directory)); });
         }
 
         private void FindFiles(DirectoryInfo dir) {
-            ProcessDirectories(dir);
+            cts = new CancellationTokenSource();
+            ProcessDirectories(dir, cts.Token);
         }
 
-        private void ProcessDirectories(DirectoryInfo dir) {
+        private void ProcessDirectories(DirectoryInfo dir, CancellationToken token) {
+            if (token.IsCancellationRequested) {
+                return;
+            }
             try {
                 DirectoryInfo[] subdirs = dir.GetDirectories();
                 FileInfo[] files = dir.GetFiles();
                 foreach (var subdir in subdirs) {
-                    ProcessDirectories(subdir);
+                    ProcessDirectories(subdir, token);
                 }
                 foreach (var file in files) {
                     NumFiles++;
@@ -51,6 +57,10 @@ namespace FileSearchingWPF {
             if (temp != null) {
                 temp(this, e);
             }
+        }
+
+        public void Stop() {
+            cts.Cancel();
         }
     }
 }

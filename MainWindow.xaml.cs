@@ -126,7 +126,7 @@ namespace FileSearchingWPF {
         }
 
         private void stopButtonClickHandler(object sender, RoutedEventArgs e) {
-//            MessageBox.Show("Stop");
+            fileSearcher.Stop();
         }
     }
 }
