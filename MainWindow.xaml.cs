@@ -70,7 +70,7 @@ namespace FileSearchingWPF {
         }
 
         private void NewFileProcessedMsg(Object o, NewFileProcessedEventArgs e) {
-            this.Dispatcher.Invoke(new Action<Int32>(num => qtyFilesLabel.Content = num.ToString()), e.NumFiles);
+            this.Dispatcher.Invoke(new Action<Int32>(num => qtyFilesLabel.Content = num.ToString()), fileSearcher.NumFiles);
         }
 
         private void NewFileFoundMsg(Object o, NewFileFoundEventArgs e) {
@@ -105,32 +105,23 @@ namespace FileSearchingWPF {
         private void WhatToDoIfAtLeastOneFoundFileExistsInTreeView(String str) {
             String[] sArr = str.Split(new Char[] {'\\'});
             TreeViewItem currItem = (TreeViewItem)treeView.Items.GetItemAt(0);
-            Int32 i = 0;
-            if (sArr.Length > 0) {
-                if ((String)currItem.Header == sArr[0]) {
-                    i++;
-                }
-            }
-            if (sArr.Length > 1) {
-                while (i < sArr.Length) {
-                    Boolean isThisItemExist = false;
-                    foreach (TreeViewItem item in currItem.Items) {
-                        if ((String)item.Header == sArr[i]) {
-                            isThisItemExist = true;
-                            i++;
-                            currItem = item;
-                            break;
-                        }
-                    }
-                    if (!isThisItemExist) {
-                        TreeViewItem newItem = new TreeViewItem();
-                        newItem.Header = sArr[i];
-                        currItem.Items.Add(newItem);
-                        currItem = newItem;
-                        currItem.IsExpanded = true;
-                        i++;
+            for (Int32 i = 1; i < sArr.Length; i++) {
+                Boolean isThisItemExist = false;
+                foreach (TreeViewItem item in currItem.Items) {
+                    if ((String)item.Header == sArr[i]) {
+                        isThisItemExist = true;
+                        currItem = item;
+                        break;
                     }
                 }
+                if (isThisItemExist) {
+                    continue;
+                }
+                TreeViewItem newItem = new TreeViewItem();
+                newItem.Header = sArr[i];
+                currItem.Items.Add(newItem);
+                currItem = newItem;
+                currItem.IsExpanded = true;
             }
         }
 

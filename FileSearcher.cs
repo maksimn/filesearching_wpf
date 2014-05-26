@@ -29,7 +29,8 @@ namespace FileSearchingWPF {
                     ProcessDirectories(subdir);
                 }
                 foreach (var file in files) {
-                    OnNewFileProcessed(new NewFileProcessedEventArgs(++NumFiles));
+                    NumFiles++;
+                    OnNewFileProcessed(new NewFileProcessedEventArgs());
                     if (file.Name.Contains(FilePattern)) {
                         OnNewFileFound(new NewFileFoundEventArgs(file.FullName));
                     }
