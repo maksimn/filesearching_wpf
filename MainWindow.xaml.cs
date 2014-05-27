@@ -70,7 +70,9 @@ namespace FileSearchingWPF {
         }
 
         private void NewFileProcessedMsg(Object o, NewFileProcessedEventArgs e) {
-            this.Dispatcher.Invoke(new Action<Int32>(num => qtyFilesLabel.Content = num.ToString()), fileSearcher.NumFiles);
+            this.Dispatcher.Invoke(new Action<Int32, String>(
+                (num, str) => { qtyFilesLabel.Content = num.ToString(); timeLabel.Content = str; }
+                ), fileSearcher.NumFiles, fileSearcher.Time.ToString().Substring(0, 11));
         }
 
         private void NewFileFoundMsg(Object o, NewFileFoundEventArgs e) {

@@ -9,17 +9,20 @@ namespace FileSearchingWPF {
         public Int32 NumFiles { get; set; } // Number of files processed
         public String Directory { get; set; }
         public String FilePattern { get; set; }
+        public TimeSpan Time { get; set; }
 
         public event EventHandler<NewFileProcessedEventArgs> NewFileProcessed;
         public event EventHandler<NewFileFoundEventArgs> NewFileFound;
 
         private CancellationTokenSource cts;
+        private DateTime beginning;
 
         public async Task StartSearching() {
             await Task.Run(() => { FindFiles(new DirectoryInfo(Directory)); });
         }
 
         private void FindFiles(DirectoryInfo dir) {
+            beginning = DateTime.Now;
             cts = new CancellationTokenSource();
             ProcessDirectories(dir, cts.Token);
         }
@@ -36,6 +39,7 @@ namespace FileSearchingWPF {
                 }
                 foreach (var file in files) {
                     NumFiles++;
+                    Time = DateTime.Now.Subtract(beginning);
                     OnNewFileProcessed(new NewFileProcessedEventArgs());
                     if (file.Name.Contains(FilePattern)) {
                         OnNewFileFound(new NewFileFoundEventArgs(file.FullName));
