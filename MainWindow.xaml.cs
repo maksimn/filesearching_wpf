@@ -66,7 +66,8 @@ namespace FileSearchingWPF {
 
         private void SetSearchingParameters() {
             fileSearcher.Directory = folderTextBox.Text;
-            fileSearcher.FilePattern = fileTextBox.Text;            
+            fileSearcher.FilePattern = fileTextBox.Text;
+            fileSearcher.NumFiles = 0;
         }
 
         private void NewFileProcessedMsg(Object o, NewFileProcessedEventArgs e) {
